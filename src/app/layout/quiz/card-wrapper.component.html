@@ -1,0 +1,70 @@
+<div class="quiz-container">
+  @switch (currentStep) {
+    @case (0) {
+      <div class="quiz-step">
+        <h2 class="quiz-question">{{ radioButtonData[0].question }}</h2>
+
+        <div class="quiz-options">
+          @for (option of radioButtonData[0].options; track option) {
+            <label class="quiz-option">
+              <input type="radio"
+                     name="q1"
+                     [(ngModel)]="radioButtonData[0].selectedAnswer"
+                     [value]="option">
+              {{ option }}
+            </label>
+          }
+        </div>
+
+        <div class="quiz-actions">
+          <button class="btn" disabled>Voltar</button>
+          <button class="btn primary"
+                  (click)="nextStep()"
+                  [disabled]="radioButtonData[0].selectedAnswer == null">
+            Avançar
+          </button>
+        </div>
+      </div>
+    }
+
+    @case (1) {
+      <div class="quiz-step">
+        <h2 class="quiz-question">{{ radioButtonData[1].question }}</h2>
+
+        <div class="quiz-options">
+          @for (option of radioButtonData[1].options; track option) {
+            <label class="quiz-option">
+              <input type="radio"
+                     name="q2"
+                     [(ngModel)]="radioButtonData[1].selectedAnswer"
+                     [value]="option">
+              {{ option }}
+            </label>
+          }
+        </div>
+
+        <div class="quiz-actions">
+          <button class="btn" (click)="prevStep()">Voltar</button>
+          <button class="btn primary"
+                  (click)="nextStep()"
+                  [disabled]="radioButtonData[1].selectedAnswer == null">
+            Avançar
+          </button>
+        </div>
+      </div>
+    }
+
+    @case (2) {
+      <div class="quiz-step">
+        <h2 class="quiz-question">Quiz finalizado!</h2>
+        <p class="quiz-result">
+          Sua pontuação foi: <strong>{{ getScore() }}%</strong>
+        </p>
+
+        <div class="quiz-actions center">
+          <button class="btn" (click)="prevStep()">Voltar</button>
+        </div>
+      </div>
+    }
+  }
+</div>
